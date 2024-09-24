@@ -24,7 +24,7 @@ namespace DAL.Repositories.Services
             _context = context;
             _configuration = configuration;
         }
-        public async Task<string> Register(ReqRegisterUserDto register)
+        public async Task<string> AddUser(ReqRegisterUserDto register)
         {
             var isAnyEmail = await _context.MstUsers.SingleOrDefaultAsync(e=>e.Email == register.Email);
             if (isAnyEmail != null)
@@ -104,8 +104,7 @@ namespace DAL.Repositories.Services
 
         public async Task<string> Delete(string userId)
         {
-            var user = await _context.MstUsers.FindAsync(userId);
-            var username = user.Name;
+            var user = await _context.MstUsers.SingleOrDefaultAsync(user => user.Id == userId);
             if (user == null)
             {
                 throw new Exception("User not found");
@@ -113,6 +112,7 @@ namespace DAL.Repositories.Services
 
             _context.MstUsers.Remove(user);
             await _context.SaveChangesAsync();
+            var username = user.Name;
             return username;
         }
 

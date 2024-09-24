@@ -10,7 +10,7 @@ namespace DAL.Repositories.Services.Interfaces
 {
     public interface IUserServices
     {
-        Task<string> Register(ReqRegisterUserDto register);
+        Task<string> AddUser(ReqRegisterUserDto register);
         Task<List<ResUserDto>> GetAllUsers();
         Task<ResLoginDto> Login(ReqLoginDto reqLogin);
         Task<string> Update(string userId, ReqUpdateUserDto reqUpdate);

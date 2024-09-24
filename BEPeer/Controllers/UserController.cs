@@ -21,7 +21,7 @@ namespace BEPeer.Controllers
         }
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> Register(ReqRegisterUserDto register)
+        public async Task<IActionResult> AddUser(ReqRegisterUserDto addUser)
         {
             try
             {
@@ -43,11 +43,11 @@ namespace BEPeer.Controllers
                         Data = errors
                     });
                 }
-                var res = await _userservices.Register(register);
+                var res = await _userservices.AddUser(addUser);
                 return Ok(new ResBaseDto<string>
                 {
                     Success = true,
-                    Message = "User registered",
+                    Message = "User added",
                     Data = res
                 });
             }
@@ -95,7 +95,6 @@ namespace BEPeer.Controllers
             }
         }
         [HttpPost]
-        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Login(ReqLoginDto loginDto)
         {
             try
@@ -146,7 +145,7 @@ namespace BEPeer.Controllers
             {
                 if (ex.Message == "User not found")
                 {
-                    return NotFound(new ResBaseDto<string>
+                    return BadRequest(new ResBaseDto<string>
                     {
                         Success = false,
                         Message = ex.Message,
