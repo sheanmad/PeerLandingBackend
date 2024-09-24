@@ -47,7 +47,7 @@ namespace BEPeer.Controllers
                 return Ok(new ResBaseDto<string>
                 {
                     Success = true,
-                    Message = "User register",
+                    Message = "User registered",
                     Data = res
                 });
             }
