@@ -16,4 +16,6 @@ public partial class MstUser
     public string Role { get; set; } = null!;
 
     public decimal? Balance { get; set; }
+
+    public List<MstLoans> MstLoans { get; set; } = new List<MstLoans>();
 }

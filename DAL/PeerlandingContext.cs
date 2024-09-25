@@ -17,6 +17,8 @@ public partial class PeerlandingContext : DbContext
     }
 
     public virtual DbSet<MstUser> MstUsers { get; set; }
+    public virtual DbSet<MstLoans> MstLoans { get; set; }
+    public virtual DbSet<TrnFunding> TrnFundings { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

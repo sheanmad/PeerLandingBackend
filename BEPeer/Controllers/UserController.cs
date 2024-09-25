@@ -20,7 +20,7 @@ namespace BEPeer.Controllers
             _userservices = userServices;
         }
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public async Task<IActionResult> AddUser(ReqRegisterUserDto addUser)
         {
             try
@@ -71,7 +71,6 @@ namespace BEPeer.Controllers
             }
         }
         [HttpGet]
-        [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetAllUsers()
         {
             try
@@ -128,7 +127,6 @@ namespace BEPeer.Controllers
         }
 
         [HttpDelete("{userId}")]
-        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteUser(string userId)
         {
             try
@@ -161,7 +159,6 @@ namespace BEPeer.Controllers
             }
         }
         [HttpPut("{userId}")]
-        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Update(string userId, ReqUpdateUserDto reqUpdate)
         {
             try
