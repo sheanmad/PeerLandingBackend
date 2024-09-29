@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.DTO.Res
+namespace DAL.DTO.Req
 {
-    public class ResLoginDto
+    public class ReqUpdateAmountDto
     {
-        public string Token { get; set; }
-        public string Id { get; set; }
-
+        public decimal? Amount { get; set; }
     }
 }

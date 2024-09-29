@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace DAL.DTO.Res
 {
-    public class ResLoginDto
+    public class ResGetSaldoByIdDto
     {
-        public string Token { get; set; }
-        public string Id { get; set; }
-
+        public decimal? Balance { get; set; }
     }
 }

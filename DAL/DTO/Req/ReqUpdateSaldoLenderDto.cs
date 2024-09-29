@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace DAL.DTO.Req
 {
-    public class ReqUpdateLoan
+    public class ReqUpdateSaldoLenderDto
     {
-        [Required(ErrorMessage = "status is required")]
-        public string status { get; set; }
+        [Range(0, double.MaxValue, ErrorMessage = "balance must be a positive value")]
+        public decimal? Balance { get; set; }
     }
 }

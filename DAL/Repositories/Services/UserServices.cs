@@ -24,41 +24,6 @@ namespace DAL.Repositories.Services
             _context = context;
             _configuration = configuration;
         }
-        public async Task<string> AddUser(ReqRegisterUserDto register)
-        {
-            var isAnyEmail = await _context.MstUsers.SingleOrDefaultAsync(e=>e.Email == register.Email);
-            if (isAnyEmail != null)
-            {
-                throw new Exception("Email already used");
-            }
-
-            var newUser = new MstUser
-            {
-                Name = register.Name,
-                Email = register.Email,
-                Password = BCrypt.Net.BCrypt.HashPassword(register.Password),
-                Role = register.Role,
-                Balance = register.Balance,
-            };
-            await _context.MstUsers.AddAsync(newUser);
-            await _context.SaveChangesAsync();
-
-            return newUser.Name;
-        }
-
-        public async Task<List<ResUserDto>> GetAllUsers()
-        {
-            return await _context.MstUsers
-                .Where(user => user.Role != "admin")
-                .Select(user => new ResUserDto
-                {
-                    Id = user.Id,
-                    Name = user.Name,
-                    Email = user.Email,
-                    Role = user.Role,
-                    Balance= user.Balance
-                }).ToListAsync();
-        }
 
         public async Task<ResLoginDto> Login(ReqLoginDto reqLogin)
         {
@@ -72,10 +37,12 @@ namespace DAL.Repositories.Services
             {
                 throw new Exception("Invalid email or password");
             }
+            var id = user.Id;
             var token = GenerateJwtToken(user);
             var loginResponse = new ResLoginDto
             {
                 Token = token,
+                Id = id
             };
             return loginResponse;
         }
@@ -102,38 +69,5 @@ namespace DAL.Repositories.Services
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public async Task<string> Delete(string userId)
-        {
-            var user = await _context.MstUsers.SingleOrDefaultAsync(user => user.Id == userId);
-            if (user == null)
-            {
-                throw new Exception("User not found");
-            }
-
-            _context.MstUsers.Remove(user);
-            await _context.SaveChangesAsync();
-            var username = user.Name;
-            return username;
-        }
-
-        public async Task<string> Update(string userId, ReqUpdateUserDto reqUpdate)
-        {
-            var existingUser = await _context.MstUsers.SingleOrDefaultAsync(user => user.Id == userId);
-
-            if (existingUser == null)
-            {
-                throw new Exception("User not found");
-            }
-
-            existingUser.Name = reqUpdate.Name ?? existingUser.Name;
-            existingUser.Role = reqUpdate.Role ?? existingUser.Role;
-            existingUser.Balance = reqUpdate.Balance ?? existingUser.Balance;
-
-            _context.MstUsers.Update(existingUser);
-            await _context.SaveChangesAsync();
-
-            return reqUpdate.Name;
-
-        }
     }
 }

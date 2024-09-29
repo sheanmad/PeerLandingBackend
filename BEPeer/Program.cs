@@ -73,7 +73,9 @@ builder.Services.AddDbContext<PeerlandingContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IUserServices, UserServices>();
-builder.Services.AddScoped<ILoanServices, LoanServices>();
+builder.Services.AddScoped<IAdminServices, AdminServices>();
+builder.Services.AddScoped<ILenderServices, LenderServices>();
+builder.Services.AddScoped<IBorrowerServices, BorrowerServices>();
 
 var app = builder.Build();
 

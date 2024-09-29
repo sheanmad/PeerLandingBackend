@@ -7,20 +7,14 @@ using System.Threading.Tasks;
 
 namespace DAL.DTO.Req
 {
-    public class ReqLoanDto
+    public class ReqAddRequestLoanDto
     {
-        [Required(ErrorMessage = "BorrowerId is required")]
         public string BorrowerId { get; set; }
-
-        [Required(ErrorMessage = "Amount is required")]
-        [Range(0, double.MaxValue, ErrorMessage = "Amount must be a positive value")]
         public decimal Amount { get; set; }
-
-        [Required(ErrorMessage = "Interest rate is required")]
         public decimal InterestRate { get; set; }
-
-        [Required(ErrorMessage = "Duration is required")]
         public int Duration { get; set; }
-
+        public string Status { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }
